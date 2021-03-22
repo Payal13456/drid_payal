@@ -1,5 +1,13 @@
 @extends('layouts.app')
-
+@section('style')
+<link href="{!! asset('assets/css/parsley.css') !!}" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    .parsley-required{
+        list-style: none;
+        color: #f28484;
+    }
+</style>
+@stop
 @section('content')
 <!-- <div class="container">
     <div class="row justify-content-center">
@@ -112,12 +120,12 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" id="login_form">
                         @csrf
                         <div class="">
                             <p class="text-medium font-20 text-dark ">Who are you?</p>
                             <div class="form-check-inline pb-5 mr-3">
-                                <input type="radio" class="form-check-input" name="optradio" id="candidate" value="candidate" checked="checked">
+                                <input type="radio" class="form-check-input" name="optradio" id="candidate" value="candidate" checked="checked" >
                                 <label class="form-check-label" for="candidate"> Candidate </label>
                             </div>
                             <div class="form-check-inline pb-5 mr-3">
@@ -128,7 +136,7 @@
                         <div class="">
                             <p class="text-medium font-20">Enter your email and password</p>
                                 <div class="form-group mb-4">
-                                    <input id="email" type="email" class="form-control form-custom @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    <input id="email" type="email" class="form-control form-custom @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" data-parsley-required="true" autocomplete="email" autofocus>
                                     <label class="form-control-placeholder" for="email_id">Enter email</label>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -137,7 +145,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group mb-4">
-                                    <input id="password" type="password" class="form-control form-custom @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                    <input id="password" type="password" class="form-control form-custom @error('password') is-invalid @enderror" name="password" data-parsley-required="true" autocomplete="current-password">
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -174,3 +182,9 @@
     </div>
 </div>
 @endsection
+@section('scripts')
+<script src="{{ asset('assets/js/parsley.js') }}"></script>
+<script type="text/javascript">
+     $('#login_form').parsley();
+</script>
+@stop
