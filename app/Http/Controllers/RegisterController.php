@@ -53,7 +53,7 @@ class RegisterController extends Controller
 	        	$user = StudentInfo::insert($studentInfo);
 	        	//echo '<pre>';print_r($user);die;
 	        	$message = "Successfully Registered!!";
-                Session::flash('danger', $message);
+                Session::flash('success',$message);
                 $auth = Auth::attempt($data);
                 return redirect('/next-step');
 	        }else{
@@ -88,6 +88,7 @@ class RegisterController extends Controller
 	                Session::flash('danger', $message);
 	                return redirect()->back();
 	            }
+                Session::flash('success','Logged in Successfully!');
 	            return redirect('/profile');
 	        }else{
 	        	return redirect()->back();

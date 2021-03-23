@@ -115,11 +115,11 @@
                     <div class="pb-4">
                         <h5 class="font-35 font-weight-bold">Login</h5>
                     </div>
-                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                        @if(Session::has($msg))
+                            <div class="alert alert-{{ $msg }}">{{ Session::get($msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>
+                        @endif
+                    @endforeach
                     <form method="POST" action="{{ route('login') }}" id="login_form">
                         @csrf
                         <div class="">

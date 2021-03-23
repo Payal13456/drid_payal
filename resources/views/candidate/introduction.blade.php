@@ -31,23 +31,23 @@
                                 <img class="flag" src="{{url('assets/img/country-flag.png')}}">
                             </div>
                             <div class="avatar">
-                                <img class="img-fluid" alt="" src="{{url('assets/img/profile.png')}}">
+                                <img class="img-fluid" alt="" src="{{url('/')}}/{{$user->profile_img}}">
                             </div>
                             <div class="info">
-                                <div class="desc text-dark mt-0">ID: #DRID{{$user->id}} 
+                                <div class="desc text-dark mt-0">ID: #DRID00{{$user->id}} 
                                     <i class="fa fa-clone id-copy-icon"></i>
                                 </div>
                                 <div class="title">
                                     <a target="#" href="#">{{$user->fname}} {{$user->lname}}</a>
                                 </div>
-                                <div class="desc"><a>Software Developer</a></div>
+                                <div class="desc"><a>{{$user->prefroles}}</a></div>
                                 <div class="desc">
                                     <a class="light-gray" href="#">
                                         <i class="fa fa-map-marker-alt mr-2"></i>Los Angeles, USA
                                     </a>
                                 </div>
                                 <div class="desc online-desc w-100">
-                                    <a class="online-text"><i class="fa fa-circle align-middle"></i> Open for new opportunity </a>
+                                    <a class="online-text"><i class="fa fa-circle align-middle"></i>{{$user->status}} </a>
                                 </div>
                                 <div class="desc-2">
                                     <div class="clearfix">
@@ -64,7 +64,7 @@
                                             <i class="fab fa-github"></i>
                                         </div>
                                         <div class="float-left intro-text">
-                                            <a class="contact-desc">www.github.com/Jaydon</a>
+                                            <a class="contact-desc">www.github.com/{{$user->github}}</a>
                                         </div>
                                     </div>
                                     <!--  -->
@@ -82,7 +82,7 @@
                                             <i class="fab fa-linkedin-in"></i>
                                         </div>
                                         <div class="float-left intro-text">
-                                            <a class="contact-desc">www.linkedin.com/jaydon</a>
+                                            <a class="contact-desc">www.linkedin.com/{{$user->linkedin}}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@
                         <!--  -->
                         <div class="shadow p-20 bg-white">
                             <p class="font-weight-bold text-dark font-18">Cover Letter</p>
-                            <img class="img-fluid w-100" src="{{url('assets/img/letter.png')}}">
+                            <img class="img-fluid w-100" src="{{url('/')}}/{{$user->cover_img}}">
                         </div>
                         <!--  -->
                         <div class="shadow p-20 bg-white">
@@ -924,7 +924,7 @@
                             </div>
                             <div class="font-20 font-weight-bold">Quick Links</div>
                             <ul class="clearfix mb-4">
-                                <li class="btn text-primary intro-btn bg-white float-left mr-3 mt-4">Cover Letter</li>
+                                <li class="btn text-primary intro-btn bg-white float-left mr-3 mt-4" >Cover Letter</li>
                                 <li class="btn text-primary intro-btn bg-white float-left mr-3 mt-4">Skills</li>
                                 <li class="btn text-primary intro-btn bg-white float-left mr-3 mt-4">CTC</li>
                                 <li class="btn text-primary intro-btn bg-white float-left mr-3 mt-4">Job Type</li>

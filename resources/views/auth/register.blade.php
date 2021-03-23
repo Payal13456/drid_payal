@@ -1,5 +1,13 @@
 @extends('layouts.app')
-
+@section('style')
+<link href="{!! asset('assets/css/parsley.css') !!}" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    .parsley-required, .parsley-type{
+        list-style: none;
+        color: #f28484;
+    }
+</style>
+@stop
 @section('content')
 <div class="login-body">
     <nav class="navbar navbar-expand-lg extra-padding">
@@ -37,7 +45,12 @@
                     <div class="pb-4">
                         <h5 class="font-35 font-weight-bold">Candidate Register</h5>
                     </div>
-                    <form action="{{ route('register')}}" method="post">
+                    @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                        @if(Session::has($msg))
+                            <div class="alert alert-{{ $msg }}">{{ Session::get($msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>
+                        @endif
+                    @endforeach
+                    <form action="{{ route('register')}}" method="post" id="register_form">
                         @csrf
                         <div class="">
                             <p class="text-medium font-15 text-dark ">If you are recuiter - <a href="{{url('recruiter/registration')}}">Signup</a></p>
@@ -54,27 +67,27 @@
                         <div class="">
                             <p class="text-medium font-20">Fill the form</p>
                                 <div class="form-group mb-4">
-                                    <input type="text" name="first_name" class="form-control form-custom" id="first_name" required>
+                                    <input type="text" name="first_name" class="form-control form-custom" id="first_name" data-parsley-required="true">
                                     <label class="form-control-placeholder" for="first_name">First name</label>
                                 </div>
                                 <div class="form-group mb-4">
-                                    <input type="text" name="last_name" class="form-control form-custom" id="last_name" required>
+                                    <input type="text" name="last_name" class="form-control form-custom" id="last_name" data-parsley-required="true">
                                     <label class="form-control-placeholder" for="last_name">Last name</label>
                                 </div>
                                 <div class="form-group mb-4">
-                                    <input type="text" name="mobile_number" class="form-control form-custom" id="mobile_number" required>
+                                    <input type="text" name="mobile_number" class="form-control form-custom" id="mobile_number" data-parsley-required="true">
                                     <label class="form-control-placeholder" for="mobile_number">Mobile number</label>
                                 </div>
                                 <div class="form-group mb-4">
-                                    <input type="text" name="email" class="form-control form-custom" id="email" required>
+                                    <input type="text" name="email" class="form-control form-custom" id="email" data-parsley-required="true" data-parsley-type="email" >
                                     <label class="form-control-placeholder" for="email">Email</label>
                                 </div>
                                 <div class="form-group mb-4">
-                                    <input type="password" name="create_password" class="form-control form-custom" id="create_password" required>
+                                    <input type="password" name="create_password" class="form-control form-custom" id="create_password" data-parsley-required="true">
                                     <label class="form-control-placeholder" for="create_password">Create Password</label>
                                 </div>
                                 <div class="form-group mb-4">
-                                    <input type="password" name="confirm_password" class="form-control form-custom" id="confirm_password" required>
+                                    <input type="password" name="confirm_password" class="form-control form-custom" id="confirm_password" data-parsley-required="true">
                                     <label class="form-control-placeholder" for="confirm_password">Confirm Password</label>
                                 </div>
                                 <div class="form-group">
@@ -145,3 +158,9 @@
     </div>
 </div>
 @endsection
+@section('scripts')
+<script src="{{ asset('assets/js/parsley.js') }}"></script>
+<script type="text/javascript">
+     $('#register_form').parsley();
+</script>
+@stop
