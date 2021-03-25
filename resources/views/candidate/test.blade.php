@@ -4,42 +4,11 @@
         <input type="date" name="dob" class="form-control form-custom" id="dob"  value={{date('Y-m-d')}}>
         <label class="form-control-placeholder" for="name">Date of Birth</label>
     </div>
-    <div class="form-group mb-4 mt-4">
-        <input type="text" name="name" class="form-control form-custom" id="name"  value="{{Auth::user()->fname}}">
-        <label class="form-control-placeholder" for="name">First Name</label>
-    </div>
-    <div class="form-group mb-4 mt-4">
-        <input type="text" name="name" class="form-control form-custom" id="name"  value="{{Auth::user()->fname}}">
-        <label class="form-control-placeholder" for="name">First Name</label>
-    </div>
-    <div class="form-group mb-4 mt-4">
-        <input type="text" name="name" class="form-control form-custom" id="name"  value="{{Auth::user()->fname}}">
-        <label class="form-control-placeholder" for="name">First Name</label>
-    </div>
-    <div class="form-group mb-4 mt-4">
-        <input type="text" name="name" class="form-control form-custom" id="name"  value="{{Auth::user()->fname}}">
-        <label class="form-control-placeholder" for="name">First Name</label>
-    </div>
-    <div class="form-group mb-4 mt-4">
-        <input type="text" name="name" class="form-control form-custom" id="name"  value="{{Auth::user()->fname}}">
-        <label class="form-control-placeholder" for="name">First Name</label>
-    </div>
-    <div class="form-group mb-4 mt-4">
-        <input type="text" name="name" class="form-control form-custom" id="name"  value="{{Auth::user()->fname}}">
-        <label class="form-control-placeholder" for="name">First Name</label>
-    </div>
-    <div class="form-group mb-4 mt-4">
-        <input type="text" name="name" class="form-control form-custom" id="name"  value="{{Auth::user()->fname}}">
-        <label class="form-control-placeholder" for="name">First Name</label>
-    </div>
-    <div class="form-group mb-4 mt-4">
-        <input type="text" name="name" class="form-control form-custom" id="name"  value="{{Auth::user()->fname}}">
-        <label class="form-control-placeholder" for="name">First Name</label>
-    </div>
+    
     <h5>Summary</h5>
     <div class="form-group my-4">
         <textarea class="form-control form-textarea" rows="5" id="comment" ></textarea>
-        <label class="form-control-placeholder" for="comment">Comment:</label>
+        <label class="form-control-placeholder" for="comment">Summary:</label>
     </div>
     <!-- <h5>Career Objective</h5>
     <div class="form-group my-4">

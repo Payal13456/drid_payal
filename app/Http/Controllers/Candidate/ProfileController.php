@@ -81,7 +81,9 @@ class ProfileController extends Controller
                 $user->linkedin = $request->linkedin;
                 $user->mobile_no = $request->mobile_no;
                 $user->prefloc = $request->prefloc;
-                $user->prefroles = $request->prefroles;
+                $user->job_title = $request->prefroles;
+                $user->birth_date = $request->birth_date;
+                $user->summary = $request->summary;
                 if($user->save()){
                     Session::flash('success', 'Successfully updated!');
                     return redirect('/introduction');

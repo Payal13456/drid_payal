@@ -176,16 +176,6 @@
 	            <input type="text" name="email" class="form-control form-custom" id="email"  value="{{Auth::user()->email}}" disabled="true" data-parsley-required="true">
 	            <label class="form-control-placeholder" for="email">Email</label>
 	        </div>
-	        <!--  -->
-	        <div class="form-group mb-4">
-	            <input type="text" name="github" class="form-control form-custom" id="github_url" @if(Auth::user()->github != NULL) value="{{Auth::user()->github}}" @else value="" @endif data-parsley-required="true">
-	            <label class="form-control-placeholder" for="github_url">Github URL</label>
-	        </div>
-	        <!--  -->
-	        <div class="form-group mb-4">
-	            <input type="text" name="linkedin" class="form-control form-custom" id="linkedin_url" @if(Auth::user()->linkedin != NULL) value="{{Auth::user()->linkedin}}" @else value="" @endif data-parsley-required="true">
-	            <label class="form-control-placeholder" for="linkedin_url">Linkedin URL</label>
-	        </div>
 	    </div>
         <!--  -->
         <!-- <div class="float-right py-2">
@@ -194,6 +184,33 @@
     <!-- </div> -->
     
   </div>
+  <div class="tab">
+    <div id="step2">
+      <div class="form-group mb-4 mt-4">
+          <input type="date" name="birth_date" class="form-control form-custom" id="dob"  value={{date('Y-m-d')}}>
+          <label class="form-control-placeholder" for="name">Date of Birth</label>
+      </div>
+      <div class="form-group mb-4">
+          <input type="text" name="github" class="form-control form-custom" id="github_url" @if(Auth::user()->github != NULL) value="{{Auth::user()->github}}" @else value="" @endif data-parsley-required="true">
+          <label class="form-control-placeholder" for="github_url">Github URL</label>
+      </div>
+      <!--  -->
+      <div class="form-group mb-4">
+          <input type="text" name="linkedin" class="form-control form-custom" id="linkedin_url" @if(Auth::user()->linkedin != NULL) value="{{Auth::user()->linkedin}}" @else value="" @endif data-parsley-required="true">
+          <label class="form-control-placeholder" for="linkedin_url">Linkedin URL</label>
+      </div>
+      <!-- <h5>Summary</h5> -->
+      <div class="form-group my-4">
+          <textarea class="form-control form-textarea" rows="5" id="comment" name="summary" ></textarea>
+          <label class="form-control-placeholder" for="comment">Summary:</label>
+      </div>
+    </div>
+    <!-- <h5>Career Objective</h5>
+    <div class="form-group my-4">
+        <textarea class="form-control form-textarea" rows="5" id="comment" ></textarea>
+        <label class="form-control-placeholder" for="comment">Comment:</label>
+    </div> -->
+</div>
   
   <div style="overflow:auto;">
     <div style="float:right;">
@@ -202,15 +219,15 @@
     </div>
   </div>
   <!-- Circles which indicates the steps of the form: -->
-  <!-- <div style="text-align:center;margin-top:40px;">
+  <div style="text-align:center;margin-top:40px;">
+    <span class="step"></span>
+    <span class="step"></span>
+   <!--  <span class="step"></span>
     <span class="step"></span>
     <span class="step"></span>
     <span class="step"></span>
-    <span class="step"></span>
-    <span class="step"></span>
-    <span class="step"></span>
-    <span class="step"></span>
-  </div> -->
+    <span class="step"></span> -->
+  </div>
 </form>
 @endsection
 @section('scripts')
@@ -244,14 +261,14 @@ function showTab(n) {
 function nextPrev(n) {
   console.log(n);
     $('.error').remove();
-    var jsonobj = [];count1 = 0; step1 = 0; data = {};
+    var jsonobj = [];count1 = 0; step1 = 0; data = {}; data1 = {};count2 = 0; jsonobj1 = [];
     $('#step1').find('input, select, textarea').each(function() {
         if($(this).attr('name') == 'status'){
           check = $('input[name=status]:checked').val();
           // console.log(check);
           if(check == undefined || check == ''){
             $('#'+$(this).attr('name')).remove();
-             $(this).closest('div').after("<p class='error' id='"+$(this).attr('name')+"'>"+$(this).attr('id')+" is required!</p>");
+             $(this).closest('div').after("<p class='error' id='"+$(this).attr('name')+"'>"+$(this).attr('name')+" is required!</p>");
              count1= 1;
           }
           data[$(this).attr('name')] = $('input[name=status]:checked').val()
@@ -266,8 +283,6 @@ function nextPrev(n) {
           }
         }
       });
-    data["_token"] =  "{{ csrf_token() }}";
-    console.log(data);
     jsonobj = {
       data
     }
@@ -276,20 +291,22 @@ function nextPrev(n) {
       $('#step1').parsley();
       return false;
     }else{
-      console.log(data[0]);
-      $('#step1').parsley();
-        $.ajax({
-           url: $(this).attr( 'action' ),
-           data:$(this).serialize(),
-           type:'POST',
-          success:function(res){
-            if(res.status == 1){
-              return true;
-            }else{
-              return false;
-            }
+      $('#step2').find('input, select, textarea').each(function() {
+          if($(this).val() != ''){
+            data1[$(this).attr('name')] = $(this).val();
+          }else{
+            $(this).closest('div').after("<p class='error' id='"+$(this).attr('name')+"'>"+$(this).attr('id')+" is required!</p>");
+            console.log($(this).attr('id')+" is required!");
+            count2 = 1;
           }
-      })
+      });
+    jsonobj1 = {
+      data1
+    }
+      if(count2 == 1){
+        $('#step2').parsley();
+        return false;
+      }
     }
   // This function will figure out which tab to display
   var x = document.getElementsByClassName("tab");

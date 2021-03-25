@@ -40,7 +40,7 @@
                                 <div class="title">
                                     <a target="#" href="#">{{$user->fname}} {{$user->lname}}</a>
                                 </div>
-                                <div class="desc"><a>{{$user->prefroles}}</a></div>
+                                <div class="desc"><a>{{$user->job_title}}</a></div>
                                 <div class="desc">
                                     <a class="light-gray" href="#">
                                         <i class="fa fa-map-marker-alt mr-2"></i>Los Angeles, USA
