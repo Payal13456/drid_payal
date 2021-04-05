@@ -158,7 +158,7 @@
 	        </div>
 	        <!--  -->
 	        <div class="form-group mb-4">
-	            <input type="text" name="prefroles" class="form-control form-custom" id="designation" @if(Auth::user()->prefroles != NULL) value="{{Auth::user()->prefroles}}" @else value="" @endif data-parsley-required="true">
+	            <input type="text" name="prefroles" class="form-control form-custom" id="designation" @if(Auth::user()->job_title != NULL) value="{{Auth::user()->job_title}}" @else value="" @endif data-parsley-required="true">
 	            <label class="form-control-placeholder" for="designation">Designation</label>
 	        </div>
 	        <!--  -->
@@ -201,9 +201,51 @@
       </div>
       <!-- <h5>Summary</h5> -->
       <div class="form-group my-4">
-          <textarea class="form-control form-textarea" rows="5" id="comment" name="summary" ></textarea>
+          <textarea class="form-control form-textarea" rows="5" id="comment" name="summary" >@if(Auth::user()->summary != NULL) {{Auth::user()->summary}} @endif</textarea>
           <label class="form-control-placeholder" for="comment">Summary:</label>
       </div>
+    </div>
+    <!-- <h5>Career Objective</h5>
+    <div class="form-group my-4">
+        <textarea class="form-control form-textarea" rows="5" id="comment" ></textarea>
+        <label class="form-control-placeholder" for="comment">Comment:</label>
+    </div> -->
+</div>
+<div class="tab">
+    <div id="step2">
+      <div class="form-group mb-4 mt-4">
+          <input type="text" name="mother_name" class="form-control form-custom" id="mother_name"  value="">
+          <label class="form-control-placeholder" for="mother_name">Mother Name</label>
+      </div>
+      <div class="form-group mb-4 mt-4">
+          <input type="text" name="father_name" class="form-control form-custom" id="father_name"  value="">
+          <label class="form-control-placeholder" for="father_name">Father Name</label>
+      </div>
+      <div class="form-group mb-4 mt-4">
+          <input type="text" name="mother_occupation" class="form-control form-custom" id="mother_occupation"  value="">
+          <label class="form-control-placeholder" for="mother_occupation">Mother Occupation</label>
+      </div>
+      <div class="form-group mb-4 mt-4">
+          <input type="text" name="father_occupation" class="form-control form-custom" id="father_occupation"  value="">
+          <label class="form-control-placeholder" for="father_occupation">Father Occupation</label>
+      </div>
+      <div class="form-group mb-4 mt-4">
+          <input type="text" name="address" class="form-control form-custom" id="address"  value="">
+          <label class="form-control-placeholder" for="address">Address</label>
+      </div>
+      <div class="form-group mb-4 mt-4">
+          <input type="text" name="city" class="form-control form-custom" id="city"  value="">
+          <label class="form-control-placeholder" for="city">City</label>
+      </div>
+      <div class="form-group mb-4 mt-4">
+          <input type="text" name="state" class="form-control form-custom" id="state"  value="">
+          <label class="form-control-placeholder" for="state">State</label>
+      </div>
+      <div class="form-group mb-4 mt-4">
+          <input type="text" name="country" class="form-control form-custom" id="country"  value="">
+          <label class="form-control-placeholder" for="country">Country</label>
+      </div>
+      
     </div>
     <!-- <h5>Career Objective</h5>
     <div class="form-group my-4">
@@ -222,8 +264,8 @@
   <div style="text-align:center;margin-top:40px;">
     <span class="step"></span>
     <span class="step"></span>
-   <!--  <span class="step"></span>
     <span class="step"></span>
+   <!--  <span class="step"></span>
     <span class="step"></span>
     <span class="step"></span>
     <span class="step"></span> -->
@@ -291,22 +333,22 @@ function nextPrev(n) {
       $('#step1').parsley();
       return false;
     }else{
-      $('#step2').find('input, select, textarea').each(function() {
-          if($(this).val() != ''){
-            data1[$(this).attr('name')] = $(this).val();
-          }else{
-            $(this).closest('div').after("<p class='error' id='"+$(this).attr('name')+"'>"+$(this).attr('id')+" is required!</p>");
-            console.log($(this).attr('id')+" is required!");
-            count2 = 1;
-          }
-      });
-    jsonobj1 = {
-      data1
-    }
-      if(count2 == 1){
-        $('#step2').parsley();
-        return false;
-      }
+    //   $('#step2').find('input, select, textarea').each(function() {
+    //       if($(this).val() != ''){
+    //         data1[$(this).attr('name')] = $(this).val();
+    //       }else{
+    //         $(this).closest('div').after("<p class='error' id='"+$(this).attr('name')+"'>"+$(this).attr('id')+" is required!</p>");
+    //         console.log($(this).attr('id')+" is required!");
+    //         count2 = 1;
+    //       }
+    //   });
+    // jsonobj1 = {
+    //   data1
+    // }
+    //   if(count2 == 1){
+    //     $('#step2').parsley();
+    //     return false;
+    //   }
     }
   // This function will figure out which tab to display
   var x = document.getElementsByClassName("tab");

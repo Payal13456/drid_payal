@@ -55,7 +55,10 @@ class RegisterController extends Controller
 	        	$message = "Successfully Registered!!";
                 Session::flash('success',$message);
                 $auth = Auth::attempt($data);
-                return redirect('/next-step');
+                if($auth){
+                    return redirect('/next-step');    
+                }
+                return redirect()->back();
 	        }else{
 	        	$message = "Something went wrong, Please try again!";
                 Session::flash('danger', $message);
@@ -73,23 +76,37 @@ class RegisterController extends Controller
     	//echo "here";die;
 		$rules = array('email'=> 'required', 'password'=>'required');
 		$data = [
-    		'email' => $request->email_id,
-    		'password' => $request->password];
+    		'email' => $request->email,
+    		'password' => $request->password
+        ];
         $validate = Validator::make($data, [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8']
         ]);
         if($validate){
-        	//echo $request->optradio;die;
+        	// echo $request->optradio;die;
         	if($request->optradio == 'candidate'){
 	            $auth = Auth::attempt($data);
-	            if(!$auth){
-	                $message = "Invalid login credentials!";
-	                Session::flash('danger', $message);
-	                return redirect()->back();
-	            }
-                Session::flash('success','Logged in Successfully!');
-	            return redirect('/profile');
+                // echo '<pre>';print_r($data);die;
+
+	            if($auth){
+                    // echo '<pre>';print_r(Auth::user()->is_delete);die;
+                    if(Auth::user()->is_delete == 1){
+                        // echo "here";die;
+                        Auth::logout(); // log the admin out of our application
+                        $request->session()->flush();
+                        $request->session()->regenerate();
+                        $message = "User has been deleted!!";
+                        Session::flash('danger', $message);
+                        return redirect()->back();
+                    }
+                    Session::flash('success','Logged in Successfully!');
+                    return redirect('/introduction');
+	            }else{
+                    $message = "Invalid login credentials!";
+                    Session::flash('danger', $message);
+                    return redirect()->back();
+                }
 	        }else{
 	        	return redirect()->back();
 	        }

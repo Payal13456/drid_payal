@@ -24,11 +24,11 @@
 <body class="bg-color">
     <section>
         @include('includes.candidate-header')
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+            @if(Session::has($msg))
+                <div class="alert alert-{{ $msg }}" style="width: 50%;margin: 0 auto;">{{ Session::get($msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>
+            @endif
+        @endforeach
         <div class="container-fluid extra-padding mb-5">
             <div class="row">
                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12 mt-4">
@@ -46,92 +46,99 @@
                                         </button>
                                     </div>
                                     <div class="modal-body model-custom-css py-0">
-                                        <div class="row">
-                                            <div class="col-5 text-center">
-                                                <div class="profile-modal">
-                                                    <div class="file-upload">
-                                                        <label class="" for="customFile">
-                                                            <i class="fa fa-upload"></i>
-                                                            <p class="font-14 mb-0">Upload photo</p>
-                                                        </label>
-                                                        <input type="file" class="custom-file-input" id="customFile" name="filename">
+                                        <form method="post" action="{{url('update-basic-details')}}" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-6 text-center">
+                                                    <div class="profile-modal">
+                                                        <div class="file-upload">
+                                                            <label class="" for="customFile">
+                                                                <i class="fa fa-upload"></i>
+                                                                <p class="font-14 mb-0">Upload photo</p>
+                                                            </label>
+                                                            <input type="file" class="custom-file-input" id="customFile" name="profile_img" value="" data-parsley-required="true" accept="image/*" >
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <!--  -->
+                                                <!-- <div class="col-7">
+                                                    <div class="cover-photo p-5 text-center">
+                                                        <div class="file-upload">
+                                                            <label class="" for="cover_pic">
+                                                                <i class="fa fa-upload"></i>
+                                                                <p class="font-14">Upload Cover Photo</p>
+                                                            </label>
+                                                            <input type="file" class="custom-file-input" id="cover_pic" name="cover_img" value="" data-parsley-required="true" accept="image/*" >
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                            <p class="mt-4 text-medium text-dark font-18">Choose your status</p>
+                                            <div class="form-check-inline mr-3" style="margin-bottom: 20px;">
+                                                <input type="radio" class="form-check-input" name="status" id="open_opportunity" value="Open for opportunity" @if(Auth::user()->status == 'Open for opportunity') checked @endif>
+                                                <label class="form-check-label" for="open_opportunity">
+                                                    Open for opportunity 
+                                                </label>
+                                              <input type="radio" class="form-check-input" name="status" id="none" value="none" @if(Auth::user()->status == 'none') checked @endif>
+                                              <label class="form-check-label" for="none">
+                                                  None
+                                              </label>
+                                            </div>
+                                            <!-- <div class="form-check-inline mr-3">
+                                                
+                                            </div> -->
+                                            <div class="form-group mb-4 mt-4">
+                                                <input type="text" name="fname" class="form-control form-custom" id="fname"  value="{{Auth::user()->fname}}" data-parsley-required="true">
+                                                <label class="form-control-placeholder" for="fname">First Name</label>
+                                            </div>
+                                            <div class="form-group mb-4 mt-4">
+                                                <input type="text" name="lname" class="form-control form-custom" id="lname"  value="{{Auth::user()->lname}}" data-parsley-required="true">
+                                                <label class="form-control-placeholder" for="lname">Last Name</label>
                                             </div>
                                             <!--  -->
-                                            <div class="col-7">
-                                                <div class="cover-photo p-5 text-center">
-                                                    <div class="file-upload">
-                                                        <label class="" for="customFile">
-                                                            <i class="fa fa-upload"></i>
-                                                            <p class="font-14">Upload Cover Photo</p>
-                                                        </label>
-                                                        <input type="file" class="custom-file-input" id="customFile" name="filename">
-                                                    </div>
-                                                </div>
+                                            <div class="form-group mb-4">
+                                                <input type="text" name="prefroles" class="form-control form-custom" id="designation" @if(Auth::user()->job_title != NULL) value="{{Auth::user()->job_title}}" @else value="" @endif data-parsley-required="true">
+                                                <label class="form-control-placeholder" for="designation">Designation</label>
                                             </div>
-                                        </div>
-                                        <p class="mt-4 text-medium text-dark font-18">Choose your status</p>
-                                        <div class="form-check-inline mr-3">
-                                            <input type="radio" class="form-check-input" name="optradio" id="open_opportunity" value="">
-                                            <label class="form-check-label" for="open_opportunity">
-                                                Open for opportunity
-                                            </label>
-                                        </div>
-                                        <div class="form-check-inline mr-3">
-                                            <input type="radio" class="form-check-input" name="optradio" id="none" value="">
-                                            <label class="form-check-label" for="none">
-                                                None
-                                            </label>
-                                        </div>
-                                        <div class="form-group mb-4 mt-4">
-                                            <input type="text" name="name" class="form-control form-custom" id="name" required>
-                                            <label class="form-control-placeholder" for="name">Jaydon Bergson</label>
-                                        </div>
-                                        <!--  -->
-                                        <div class="form-group mb-4">
-                                            <input type="text" name="designation" class="form-control form-custom" id="designation" required>
-                                            <label class="form-control-placeholder" for="designation">Designation</label>
-                                        </div>
-                                        <!--  -->
-                                        <div class="form-group mb-4">
-                                            <input type="text" name="location" class="form-control form-custom" id="location" required>
-                                            <label class="form-control-placeholder" for="location">Location</label>
-                                        </div>
-                                        <!--  -->
-                                        <div class="form-group mb-4">
-                                            <input type="tel" name="phone_number" class="form-control form-custom" id="phone_number" required>
-                                            <label class="form-control-placeholder" for="phone_number">Phone number</label>
-                                        </div>
-                                        <!--  -->
-                                        <div class="form-group mb-4">
-                                            <input type="text" name="email" class="form-control form-custom" id="email" required>
-                                            <label class="form-control-placeholder" for="email">Email</label>
-                                        </div>
-                                        <!--  -->
-                                        <div class="form-group mb-4">
-                                            <input type="text" name="github_url" class="form-control form-custom" id="github_url" required>
-                                            <label class="form-control-placeholder" for="github_url">Github URL</label>
-                                        </div>
-                                        <!--  -->
-                                        <div class="form-group mb-4">
-                                            <input type="text" name="linkedin_url" class="form-control form-custom" id="linkedin_url" required>
-                                            <label class="form-control-placeholder" for="linkedin_url">Linkedin URL</label>
-                                        </div>
-                                        <!--  -->
-                                        <div class="float-right py-2">
-                                            <button type="submit" class="btn blue-btn text-white">Save</button>
-                                        </div>
+                                            <!--  -->
+                                            <div class="form-group mb-4" data-parsley-required="true">
+                                                <input type="text" name="prefloc" class="form-control form-custom" id="location" @if(Auth::user()->prefloc != NULL) value="{{Auth::user()->prefloc}}" @else value="" @endif>
+                                                <label class="form-control-placeholder" for="location">Location</label>
+                                            </div>
+                                            <!--  -->
+                                            <div class="form-group mb-4">
+                                                <input type="tel" name="mobile_no" class="form-control form-custom" id="phone_number"  value="{{Auth::user()->mobile_no}}" data-parsley-required="true">
+                                                <label class="form-control-placeholder" for="phone_number" >Phone number</label>
+                                            </div>
+                                            <!--  -->
+                                            <div class="form-group mb-4">
+                                                <input type="text" name="email" class="form-control form-custom" id="email"  value="{{Auth::user()->email}}" disabled="true" data-parsley-required="true">
+                                                <label class="form-control-placeholder" for="email">Email</label>
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                  <input type="text" name="github" class="form-control form-custom" id="github_url" @if(Auth::user()->github != NULL) value="{{Auth::user()->github}}" @else value="" @endif data-parsley-required="true">
+                                                  <label class="form-control-placeholder" for="github_url">Github URL</label>
+                                              </div>
+                                              <!--  -->
+                                              <div class="form-group mb-4">
+                                                  <input type="text" name="linkedin" class="form-control form-custom" id="linkedin_url" @if(Auth::user()->linkedin != NULL) value="{{Auth::user()->linkedin}}" @else value="" @endif data-parsley-required="true">
+                                                  <label class="form-control-placeholder" for="linkedin_url">Linkedin URL</label>
+                                              </div>
+                                            <!--  -->
+                                            <div class="float-right py-2">
+                                                <button type="submit" class="btn blue-btn text-white">Save</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- popup model end -->
                         <div class="avatar">
-                            <img class="img-fluid" alt="" src="{{url('assets/img/profile.png')}}">
+                            <img class="img-fluid" alt="" src="{{url('/')}}/{{$user->profile_img}}">
                         </div>
                         <div class="info mb-4">
-                            <div class="desc text-dark mt-0">ID: #DRID{{$user->id}} 
+                            <div class="desc text-dark mt-0">ID: #DRID00{{$user->id}} 
                                 <i class="fa fa-clone id-copy-icon"></i>
                             </div>
                             <div class="title">
@@ -141,27 +148,31 @@
                     </div>
                     <!--  -->
                     <div class="shadow p-20 bg-white clearfix">
-                        <p class="float-left mb-0 text-dark font-weight-bold font-18">Sammary</p>
+                        <p class="float-left mb-0 text-dark font-weight-bold font-18">Summary</p>
                         <a href="#myModal-4" data-toggle="modal"><i class="float-right text-primary mt-1 fa fa-pen"></i></a>
+
                         <!-- popup model -->
                         <div class="modal fade text-left" id="myModal-4">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-header border-bottom-0">
-                                        <p class="font-18 text-dark font-weight-bold">Sammary</p>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body model-custom-css py-0">
-                                        <div class="form-group my-4">
-                                            <textarea class="form-control form-textarea" rows="5" id="comment" required></textarea>
-                                            <label class="form-control-placeholder" for="comment">Comment:</label>
+                                    <form method="post" action="{{url('update-summary')}}">
+                                        @csrf
+                                        <div class="modal-header border-bottom-0">
+                                            <p class="font-18 text-dark font-weight-bold">Summary</p>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                            </button>
                                         </div>
-                                    </div>
-                                    <div class="float-right text-right pr-3 py-2">
-                                        <button type="submit" class="btn blue-btn text-white">Save</button>
-                                    </div>
+                                        <div class="modal-body model-custom-css py-0">
+                                            <div class="form-group my-4">
+                                                <textarea class="form-control form-textarea" rows="5" id="comment" required name="summary">{{Auth::user()->summary}}</textarea>
+                                                <label class="form-control-placeholder" for="comment">Comment:</label>
+                                            </div>
+                                        </div>
+                                        <div class="float-right text-right pr-3 py-2">
+                                            <button type="submit" class="btn blue-btn text-white">Save</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -170,7 +181,39 @@
                     <!--  -->
                     <div class="shadow p-20 bg-white clearfix">
                         <p class="float-left mb-0 font-weight-bold text-dark font-18">Cover Letter</p>
-                        <i class="float-right text-primary mt-1 fa fa-pen"></i>
+                        <a href="#cover-letter" data-toggle="modal"><i class="float-right text-primary mt-1 fa fa-pen"></i></a>
+
+                        <!-- popup model -->
+                        <div class="modal fade text-left" id="cover-letter">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <form method="post" action="{{url('update-cover-letter')}}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="modal-header border-bottom-0">
+                                            <p class="font-18 text-dark font-weight-bold">Upload Cover Photo</p>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body model-custom-css py-0">
+                                            <div class="cover-photo p-5 text-center">
+                                                <div class="file-upload">
+                                                    <label class="" for="cover_pic">
+                                                        <i class="fa fa-upload"></i>
+                                                        <p class="font-14">Upload Cover Photo</p>
+                                                    </label>
+                                                    <input type="file" class="custom-file-input" id="cover_pic" name="cover_img" value="" data-parsley-required="true" accept="image/*" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="float-right text-right pr-3 py-2">
+                                            <button type="submit" class="btn blue-btn text-white">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- popup model end -->
                     </div>
                     <!--  -->
                     <div class="shadow p-20 bg-white">
@@ -260,7 +303,34 @@
                     <!--  -->
                     <div class="shadow p-20 bg-white clearfix">
                         <p class="float-left mb-0 font-weight-bold text-dark font-18">Career Objective</p>
-                        <i class="float-right text-primary mt-1 fa fa-pen"></i>
+                        <a href="#objective" data-toggle="modal"><i class="float-right text-primary mt-1 fa fa-pen"></i></a>
+
+                        <!-- popup model -->
+                        <div class="modal fade text-left" id="objective">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <form method="post" action="{{url('update-objective')}}">
+                                        @csrf
+                                        <div class="modal-header border-bottom-0">
+                                            <p class="font-18 text-dark font-weight-bold">Career Objective</p>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body model-custom-css py-0">
+                                            <div class="form-group my-4">
+                                                <textarea class="form-control form-textarea" rows="5" id="comment" required name="objective">{{Auth::user()->objective}}</textarea>
+                                                <label class="form-control-placeholder" for="comment">Objective:</label>
+                                            </div>
+                                        </div>
+                                        <div class="float-right text-right pr-3 py-2">
+                                            <button type="submit" class="btn blue-btn text-white">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- popup model end -->
                     </div>
                     <!--  -->
                     <div class="shadow p-20 bg-white clearfix">
@@ -552,49 +622,49 @@
                         <p class="font-weight-bold text-dark font-18 font-18">General Details</p>
                         <ul class="row">
                             <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
-                                <p>Gender :</p>
+                                <p>Name :</p>
                             </li>
-                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">Dulce Dias</li>
+                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$user->fname}} {{$user->lname}}</li>
                             <!--  -->
                             <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                 <p>Age :</p>
                             </li>
-                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">24</li>
+                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{(date('Y') - date('Y',strtotime($user->birth_date)))}}</li>
                             <!--  -->
                             <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                 <p>DOB :</p>
                             </li>
-                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">01/02/1996</li>
+                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{date('d-m-Y',strtotime($user->birth_date))}}</li>
                             <!--  -->
                             <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                 <p>Marital Status :</p>
                             </li>
-                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">Single</li>
+                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$user->marital_status}}</li>
                             <!--  -->
                             <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                 <p>Address :</p>
                             </li>
-                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">50, XY, Los Angeles, USA </li>
+                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$familyInfo->address}}, {{$familyInfo->city}} ({{$familyInfo->state}}) , {{$familyInfo->country}}</li>
                             <!--  -->
                             <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                 <p>Mother’s Name :</p>
                             </li>
-                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">Hanna Baptista</li>
+                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$familyInfo->mother_name}}</li>
                             <!--  -->
                             <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                 <p>Mother’s Occupation :</p>
                             </li>
-                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">Teacher</li>
+                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$familyInfo->mother_occupation}}</li>
                             <!--  -->
                             <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                 <p>Father’s Name :</p>
                             </li>
-                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">Omar Saris</li>
+                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$familyInfo->father_name}}</li>
                             <!--  -->
                             <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                 <p>Father’s Occupation :</p>
                             </li>
-                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">Businessman</li>
+                            <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$familyInfo->father_occupation}}</li>
                             <!--  -->
                         </ul>
                     </div>

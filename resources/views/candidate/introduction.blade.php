@@ -43,11 +43,11 @@
                                 <div class="desc"><a>{{$user->job_title}}</a></div>
                                 <div class="desc">
                                     <a class="light-gray" href="#">
-                                        <i class="fa fa-map-marker-alt mr-2"></i>Los Angeles, USA
+                                        <i class="fa fa-map-marker-alt mr-2"></i>{{$user->prefloc}}
                                     </a>
                                 </div>
                                 <div class="desc online-desc w-100">
-                                    <a class="online-text"><i class="fa fa-circle align-middle"></i>{{$user->status}} </a>
+                                    <a class="online-text"><i class="fa fa-circle align-middle"></i> {{$user->status}} </a>
                                 </div>
                                 <div class="desc-2">
                                     <div class="clearfix">
@@ -91,7 +91,7 @@
                         <!--  -->
                         <div class="shadow p-20 bg-white">
                             <p class="font-weight-bold text-dark font-18 mb-2">Summary</p>
-                            <p class="font-16 text-reguler">To secure a challenging position in a reputable organization to expand my learings, knowledge, and skills. Secure a responsible career opportunity to fully utilize my training and skills.</p>
+                            <p class="font-16 text-reguler">{{$user->summary}}</p>
                         </div>
                         <!--  -->
                         <div class="shadow p-20 bg-white">
@@ -345,7 +345,7 @@
                         <!--  -->
                         <div class="shadow p-20 bg-white">
                             <p class="font-weight-bold text-dark font-18 mb-2">Career Objective</p>
-                            <p>To secure a challenging position in a reputable organization to expand my learings, knowledge, and skills. Secure a responsible career opportunity to fully utilize my training and skills, while making a significant contribution to the success of the company.</p>
+                            <p>@if(Auth()->user()->objective != NULL) {{Auth()->user()->objective}} @else N\A @endif</p>
                         </div>
                         <!--  -->
                         <div class="shadow p-20 bg-white">
@@ -868,49 +868,49 @@
                             <p class="font-weight-bold text-dark font-18 font-18">General Details</p>
                             <ul class="row">
                                 <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
-                                    <p>Gender :</p>
+                                    <p>Name :</p>
                                 </li>
-                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">Dulce Dias</li>
+                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$user->fname}} {{$user->lname}}</li>
                                 <!--  -->
                                 <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                     <p>Age :</p>
                                 </li>
-                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">24</li>
+                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{(date('Y') - date('Y',strtotime($user->birth_date)))}}</li>
                                 <!--  -->
                                 <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                     <p>DOB :</p>
                                 </li>
-                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">01/02/1996</li>
+                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{date('d-m-Y',strtotime($user->birth_date))}}</li>
                                 <!--  -->
                                 <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                     <p>Marital Status :</p>
                                 </li>
-                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">Single</li>
+                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$user->marital_status}}</li>
                                 <!--  -->
                                 <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                     <p>Address :</p>
                                 </li>
-                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">50, XY, Los Angeles, USA </li>
+                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$familyInfo->address}}, {{$familyInfo->city}} ({{$familyInfo->state}}) , {{$familyInfo->country}}</li>
                                 <!--  -->
                                 <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                     <p>Mother’s Name :</p>
                                 </li>
-                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">Hanna Baptista</li>
+                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$familyInfo->mother_name}}</li>
                                 <!--  -->
                                 <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                     <p>Mother’s Occupation :</p>
                                 </li>
-                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">Teacher</li>
+                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$familyInfo->mother_occupation}}</li>
                                 <!--  -->
                                 <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                     <p>Father’s Name :</p>
                                 </li>
-                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">Omar Saris</li>
+                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$familyInfo->father_name}}</li>
                                 <!--  -->
                                 <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">
                                     <p>Father’s Occupation :</p>
                                 </li>
-                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">Businessman</li>
+                                <li class="list-unstyled col-xl-6 col-lg-6 col-md-6 col-6">{{$familyInfo->father_occupation}}</li>
                                 <!--  -->
                             </ul>
                         </div>

@@ -42,6 +42,9 @@
 		<!-- offline-link -->
 		<script src="{{url('assets/js/bootstrap.bundle.js')}}"></script>
 		<script src="{{url('assets/js/bootstrap.min.js')}}"></script>
+		<script src="{{url('assets/js/bootstrap.min.js')}}"></script>
+		<script src="{{url('assets/js/parsley.js')}}"></script>
+		<script src="{{url('assets/js/custom.js')}}"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.js"></script>
 		  @yield('scripts')
 

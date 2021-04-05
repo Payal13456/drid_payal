@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Candidate;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\StudentInfo;
+use App\Models\familyInfo;
 use Auth;
 use Session;
 
@@ -28,13 +29,15 @@ class ProfileController extends Controller
     public function index()
     {
        $user = StudentInfo::find(Auth::user()->id);
-       return view('candidate.profile')->with(['user'=>$user]);
+       $familyInfo = familyInfo::where('student_id',Auth::user()->id)->first();
+       return view('candidate.profile')->with(['user'=>$user,'familyInfo'=>$familyInfo]);
     }
 
     public function introduction()
     {
        $user = StudentInfo::find(Auth::user()->id);
-       return view('candidate.introduction')->with(['user'=>$user]);
+       $familyInfo = familyInfo::where('student_id',Auth::user()->id)->first();
+       return view('candidate.introduction')->with(['user'=>$user,'familyInfo'=>$familyInfo]);
     }
 
     public function nextStep(){
@@ -85,6 +88,22 @@ class ProfileController extends Controller
                 $user->birth_date = $request->birth_date;
                 $user->summary = $request->summary;
                 if($user->save()){
+                    $familyInfo = ['mother_name'=>$request->mother_name,
+                                'father_name' => $request->father_name,
+                                'mother_occupation' => $request->mother_occupation,
+                                'father_occupation'=>$request->father_occupation,
+                                'address' =>$request->address,
+                                'city'=>$request->city,
+                                'country'=>$request->country,
+                                'state'=>$request->state,
+                                'student_id'=>Auth::user()->id];
+                    $familyCheck = familyInfo::where('student_id',Auth::user()->id)->first();
+                    if(empty($familyCheck)){
+                        familyInfo::insert($familyInfo);
+                    }else{
+                        familyInfo::update($familyInfo);
+                    }
+
                     Session::flash('success', 'Successfully updated!');
                     return redirect('/introduction');
                 }else{
@@ -96,5 +115,30 @@ class ProfileController extends Controller
                     return redirect()->back();
             }
         // }
+    }
+
+    public function deleteAccount(Request $request){
+        // echo "Here";die;
+        $user = StudentInfo::find(Auth::user()->id);
+        if(!empty($user)){
+            // echo "here";die;
+            $user->is_delete = 1;
+            $user->update();
+            Auth::logout(); // log the admin out of our application
+            $request->session()->flush();
+            $request->session()->regenerate();
+            // Session::flash('danger', 'User Deleted Successfully!!');
+            return redirect('/');
+        }else{
+            Session::flash('danger', 'User details not found!');
+            return redirect()->back();
+        }
+    }
+
+    public function doLogout(Request $request) {
+        Auth::logout(); // log the admin out of our application
+        $request->session()->flush();
+        $request->session()->regenerate();
+        return redirect('/');
     }
 }

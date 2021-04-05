@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apprecruiter')
 @section('content')
 <div class="login-body">
 	<nav class="navbar navbar-expand-lg extra-padding">
@@ -54,7 +54,8 @@
 					</div>
 					<div class="">
 						<p class="text-medium font-20">Fill the form</p>
-						<form>
+						<form class="ajaxformsubmit" method="post" action="{{route('recruiter.register')}}">
+							@csrf
 							<div class="form-group mb-4">
 								<input type="text" name="company_name" class="form-control form-custom" id="company_name" required>
 								<label class="form-control-placeholder" for="company_name">Company name</label>
@@ -68,11 +69,11 @@
 								<label class="form-control-placeholder" for="company_contact">Company contact</label>
 							</div>
 							<div class="form-group mb-4">
-								<input type="text" name="company_website_url" class="form-control form-custom" id="company_website_url" required>
-								<label class="form-control-placeholder" for="company_website_url">Company website URL</label>
+								<input type="text" name="company_website" class="form-control form-custom" id="company_website" required>
+								<label class="form-control-placeholder" for="company_website">Company website URL</label>
 							</div>
 							<div class="form-group">
-								<select class="form-control form-custom classic" id="sel1" name="sellist1">
+								<select class="form-control form-custom classic" id="user_type" name="user_type">
 									<option>Select Company Type</option>
 									<option>2</option>
 									<option>3</option>
@@ -80,7 +81,7 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<select class="form-control form-custom classic" id="sel1" name="sellist1">
+								<select class="form-control form-custom classic" id="com_state" name="com_state">
 									<option>Select State</option>
 									<option>2</option>
 									<option>3</option>
@@ -88,7 +89,7 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<select class="form-control form-custom classic" id="sel1" name="sellist1">
+								<select class="form-control form-custom classic" id="com_city" name="com_city">
 									<option>Select City</option>
 									<option>2</option>
 									<option>3</option>
@@ -100,7 +101,7 @@
 								<label class="form-control-placeholder" for="password">Create password</label>
 							</div>
 							<div class="form-group mb-4">
-								<input type="password" name="confirm_password" class="form-control form-custom" id="confirm_password" required>
+								<input type="password" name="" class="form-control form-custom" id="confirm_password" required>
 								<label class="form-control-placeholder" for="confirm_password">Confirm password</label>
 							</div>
 							<div class="clearfix">

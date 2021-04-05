@@ -24,13 +24,7 @@ Route::get('/register',function(){
 		return view('auth.register');
 	}
 });
-Route::get('recruiter/registration',function(){
-	if(Auth::check()){
-		return redirect('/profile');
-	}else{
-		return view('recruiter.registration');
-	}
-});
+
 Route::get('/login',function(){
 	if(Auth::check()){
 		return redirect('/next-step');
@@ -38,7 +32,6 @@ Route::get('/login',function(){
 		return view('auth.login');
 	}
 });
-Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/forget-password',function(){
 	if(Auth::check()){
@@ -50,8 +43,16 @@ Route::get('/forget-password',function(){
 
 Route::post('register','RegisterController@signup')->name('register');
 Route::post('login','RegisterController@login')->name('login');
-
 //Auth::routes();
+// Register recruiter
+Route::get('recruiter/registration',function(){
+	if(Auth::check()){
+		return redirect('/profile');
+	}else{
+		return view('recruiter.registration');
+	}
+});
+Route::post('recruiter/register','Recruiter\RecruiterController@Register')->name('recruiter.register');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -60,4 +61,13 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/next-step-1','Candidate\ProfileController@updateProfileStepOne');
 	Route::get('/profile','Candidate\ProfileController@index');
 	Route::get('/introduction','Candidate\ProfileController@introduction');
+	Route::get('logout', 'Auth\LoginController@logout');
+	Route::post('logout', 'Candidate\ProfileController@doLogout');
+	Route::post('delete-account', 'Candidate\ProfileController@deleteAccount');
+
+	/* Edit profile */
+	Route::post('update-summary', 'Candidate\EditCandidateController@updateSummary');
+	Route::post('update-cover-letter', 'Candidate\EditCandidateController@updateCoverLetter');
+	Route::post('update-objective', 'Candidate\EditCandidateController@updateObjective');
+	Route::post('update-basic-details', 'Candidate\EditCandidateController@updateBasicDetails');
 });
