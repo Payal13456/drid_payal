@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\StudentInfo;
 use App\Models\familyInfo;
+use App\Models\ProfessionalExperience;
 use Auth;
 use Session;
 
@@ -29,15 +30,18 @@ class ProfileController extends Controller
     public function index()
     {
        $user = StudentInfo::find(Auth::user()->id);
+       $proExp = ProfessionalExperience::where('user_id',Auth::user()->id)->where('type','job')->get();
        $familyInfo = familyInfo::where('student_id',Auth::user()->id)->first();
-       return view('candidate.profile')->with(['user'=>$user,'familyInfo'=>$familyInfo]);
+       return view('candidate.profile')->with(['user'=>$user,'familyInfo'=>$familyInfo,'proExp'=>$proExp]);
     }
 
     public function introduction()
     {
        $user = StudentInfo::find(Auth::user()->id);
        $familyInfo = familyInfo::where('student_id',Auth::user()->id)->first();
-       return view('candidate.introduction')->with(['user'=>$user,'familyInfo'=>$familyInfo]);
+       $proExp = ProfessionalExperience::where('user_id',Auth::user()->id)->where('type','job')->get();
+       $internship = ProfessionalExperience::where('user_id',Auth::user()->id)->where('type','intern')->get();
+       return view('candidate.introduction')->with(['user'=>$user,'familyInfo'=>$familyInfo,'proExp'=>$proExp,'internship'=>$internship]);
     }
 
     public function nextStep(){

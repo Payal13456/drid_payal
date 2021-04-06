@@ -70,4 +70,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('update-cover-letter', 'Candidate\EditCandidateController@updateCoverLetter');
 	Route::post('update-objective', 'Candidate\EditCandidateController@updateObjective');
 	Route::post('update-basic-details', 'Candidate\EditCandidateController@updateBasicDetails');
+	Route::post('update-pro-exp', 'Candidate\EditCandidateController@updateProExp');
+	Route::post('update-internship', 'Candidate\EditCandidateController@updateInternship');
 });

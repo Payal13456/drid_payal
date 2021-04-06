@@ -351,95 +351,83 @@
                         <div class="shadow p-20 bg-white">
                             <div class="clearfix mb-4">
                                 <p class="font-weight-bold text-dark font-18 text-left float-left">Professional Experience</p>
-                                <p class="text-dark font-18 text-right float-right">4 Years</p>
+                               <!--  <p class="text-dark font-18 text-right float-right">4 Years</p> -->
                             </div>
                             <!--  -->
-                            <div class="row">
-                                <div class="col-2">
-                                    <img class="img-fluid" src="{{url('assets/img/amazon-img.png')}}" width="120">
-                                </div>
-                                <div class="col-10">
-                                    <!--  -->
-                                    <div class="">
-                                        <p class="text-medium font-18 mb-0">Software Developer  l  Amazon</p>
+                            @if(count($proExp) > 0)
+                                @foreach($proExp as $exp)
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <img class="img-fluid" src="{{url('assets/img/amazon-img.png')}}" width="120">
+                                        </div>
+                                        <div class="col-10">
+                                            <!--  -->
+                                            <div class="">
+                                                <p class="text-medium font-18 mb-0">{{$exp->designation}}  | {{$exp->company_name}}</p>
+                                            </div>
+                                            <div class="clearfix">
+                                                <p class="float-left font-16 text-medium">{{date("M Y", strtotime($exp->start_date))}} - @if($exp->is_working == 1) Present @elseif($exp->end_date != NULL) {{date("M Y", strtotime($exp->end_date))}} @endif</p>
+                                                <!-- <p class="float-right font-16 text-medium"><i class="fa fa-map-marker-alt"></i> Mumbai, India</p> -->
+                                            </div>
+                                            <div class="mb-5">
+                                                <!-- <ul>
+                                                    <li class="mb-3 light-gray font-14">Creation / Modification / Appreval of Policies can be done in days opposed.</li>
+                                                    <li class="mb-3 light-gray font-14">Policy Service - Building a centralized place for all the policies across population.</li>
+                                                    <a class="text-primary" href="#">See More</a>
+                                                </ul> -->
+                                                <p>{{$exp->responsibility}}</p>
+                                            </div>
+                                        </div>
+                                        <!-- <hr class="w-100 mx-3">
+                                        <div class="px-3">
+                                            <a class="text-primary" href="#">Show 1 more experience</a>
+                                        </div> -->
                                     </div>
-                                    <div class="clearfix">
-                                        <p class="float-left font-16 text-medium">Jun 2018 - Present</p>
-                                        <p class="float-right font-16 text-medium"><i class="fa fa-map-marker-alt"></i> Mumbai, India</p>
-                                    </div>
-                                    <div class="mb-5">
-                                        <ul>
-                                            <li class="mb-3 light-gray font-14">Creation / Modification / Appreval of Policies can be done in days opposed.</li>
-                                            <li class="mb-3 light-gray font-14">Policy Service - Building a centralized place for all the policies across population.</li>
-                                            <a class="text-primary" href="#">See More</a>
-                                        </ul>
-                                    </div>
-                                    <!--  -->
-                                </div>
-                                <!--  -->
-                                <div class="col-2">
-                                    <img class="img-fluid" src="{{url('assets/img/amazon-img.png')}}" width="120">
-                                </div>
-                                <div class="col-10">
-                                    <!--  -->
-                                    <div class="">
-                                        <p class="text-medium font-18 mb-0">Software Developer  l  Amazon</p>
-                                    </div>
-                                    <div class="clearfix">
-                                        <p class="float-left font-16 text-medium">Jun 2018 - Present</p>
-                                        <p class="float-right font-16 text-medium"><i class="fa fa-map-marker-alt"></i> Mumbai, India</p>
-                                    </div>
-                                    <div class="">
-                                        <ul>
-                                            <li class="mb-3 light-gray font-14">Creation / Modification / Appreval of Policies can be done in days opposed.</li>
-                                            <li class="mb-3 light-gray font-14">Policy Service - Building a centralized place for all the policies across population.</li>
-                                            <a class="text-primary" href="#">See More</a>
-                                        </ul>
-                                    </div>
-                                    <!--  -->
-                                </div>
-                                <!--  -->
-                                <hr class="w-100 mx-3">
-                                <div class="px-3">
-                                    <a class="text-primary" href="#">Show 1 more experience</a>
-                                </div>
-                            </div>
+                                @endforeach
+                            @else
+                                <p>No Record Found</p>
+                            @endif
                         </div>
                         <!--  -->
                         <div class="shadow p-20 bg-white">
                             <div class="clearfix">
                                 <p class="font-weight-bold text-dark font-18 text-left float-left">Internship</p>
-                                <p class="text-dark text-right float-right">6 Months</p>
+                                <!-- <p class="text-dark text-right float-right">6 Months</p> -->
                             </div>
                             <!--  -->
-                            <div class="row">
-                                <div class="col-2">
-                                    <img class="img-fluid" src="{{url('assets/img/amazon-img.png')}}" width="120">
-                                </div>
-                                <div class="col-10">
-                                    <!--  -->
-                                    <div class="">
-                                        <p>Software Developer  l  Cisco</p>
+                            @if(count($internship) > 0)
+                                @foreach($internship as $exp)
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <img class="img-fluid" src="{{url('assets/img/amazon-img.png')}}" width="120">
+                                        </div>
+                                        <div class="col-10">
+                                            <!--  -->
+                                            <div class="">
+                                                <p class="text-medium font-18 mb-0">{{$exp->designation}}  | {{$exp->company_name}}</p>
+                                            </div>
+                                            <div class="clearfix">
+                                                <p class="float-left font-16 text-medium">{{date("d M Y", strtotime($exp->start_date))}} - @if($exp->is_working == 1) Present @elseif($exp->end_date != NULL) {{date("d M Y", strtotime($exp->end_date))}} @endif</p>
+                                                <!-- <p class="float-right font-16 text-medium"><i class="fa fa-map-marker-alt"></i> Mumbai, India</p> -->
+                                            </div>
+                                            <div class="mb-5">
+                                                <!-- <ul>
+                                                    <li class="mb-3 light-gray font-14">Creation / Modification / Appreval of Policies can be done in days opposed.</li>
+                                                    <li class="mb-3 light-gray font-14">Policy Service - Building a centralized place for all the policies across population.</li>
+                                                    <a class="text-primary" href="#">See More</a>
+                                                </ul> -->
+                                                <p>{{$exp->responsibility}}</p>
+                                            </div>
+                                        </div>
+                                        <!-- <hr class="w-100 mx-3">
+                                        <div class="px-3">
+                                            <a class="text-primary" href="#">Show 1 more experience</a>
+                                        </div> -->
                                     </div>
-                                    <div class="clearfix">
-                                        <p class="float-left">Dec 2017 - may 2018</p>
-                                        <p class="float-right"><i class="fa fa-map-marker-alt"></i> Mumbai, India</p>
-                                    </div>
-                                    <div class="">
-                                        <ul>
-                                            <li class="mb-4 light-gray">Creation / Modification / Appreval of Policies can be done in days opposed.</li>
-                                            <li class="mb-4 light-gray">Policy Service - Building a centralized place for all the policies across population.</li>
-                                            <a class="text-primary" href="#">See More</a>
-                                        </ul>
-                                    </div>
-                                    <!--  -->
-                                </div>
-                                <!--  -->
-                                <hr class="w-100 mx-3">
-                                <div class="px-3">
-                                    <a class="text-primary" href="#">Show 1 more experience</a>
-                                </div>
-                            </div>
+                                @endforeach
+                            @else
+                                <p>No Record Found</p>
+                            @endif
                         </div>
                         <!--  -->
                         <div class="shadow p-20 bg-white">

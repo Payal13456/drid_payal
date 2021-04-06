@@ -347,69 +347,72 @@
                                         </button>
                                     </div>
                                     <div class="modal-body model-custom-css py-0">
-                                        <div id="exp-1">
-                                            <div class="row">
-                                                <div class="col-3 text-center">
-                                                    <div class="cover-photo">
-                                                        <div class="file-upload">
-                                                            <label class="" for="customFile">
-                                                                <i class="fa fa-upload"></i>
-                                                                <p class="font-14 mb-0">Company Profile</p>
-                                                            </label>
-                                                            <input type="file" class="custom-file-input" id="customFile" name="filename">
+                                        <form method="POST" action="{{url('update-pro-exp')}}" enctype="multipart/form-data">
+                                            @csrf
+                                            <div id="exp-1">
+                                                <div class="row">
+                                                    <div class="col-3 text-center">
+                                                        <div class="cover-photo">
+                                                            <div class="file-upload">
+                                                                <label class="" for="customFile">
+                                                                    <i class="fa fa-upload"></i>
+                                                                    <p class="font-14 mb-0">Company Profile</p>
+                                                                </label>
+                                                                <input type="file" class="custom-file-input" id="customFile" name="company_profile[]">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--  -->
+                                                    <div class="col-9">
+                                                        <div class="form-group mb-4 mt-3">
+                                                            <input type="text" name="company_names[]" class="form-control form-custom" id="company_names" required>
+                                                            <label class="form-control-placeholder" for="company_names">Company name</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!--  -->
-                                                <div class="col-9">
-                                                    <div class="form-group mb-4 mt-3">
-                                                        <input type="text" name="company_names" class="form-control form-custom" id="company_names" required>
-                                                        <label class="form-control-placeholder" for="company_names">Company name</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--  -->
-                                            <div class="form-group mb-4">
-                                                <input type="text" name="designations" class="form-control form-custom" id="designations" required>
-                                                <label class="form-control-placeholder" for="designations">Designation</label>
-                                            </div>
-                                            <!--  -->
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <div class="form-group mb-4">
-                                                        <input type="date" name="date" class="form-control form-custom" id="date">
-                                                    </div>
+                                                <div class="form-group mb-4">
+                                                    <input type="text" name="designations[]" class="form-control form-custom" id="designations" required>
+                                                    <label class="form-control-placeholder" for="designations">Designation</label>
                                                 </div>
                                                 <!--  -->
-                                                <div class="col-6">
-                                                    <div class="form-group mb-4">
-                                                        <input type="date" name="date" class="form-control form-custom" id="to">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="form-group mb-4">
+                                                            <input type="date" name="from_date[]" class="form-control form-custom" id="date">
+                                                        </div>
+                                                    </div>
+                                                    <!--  -->
+                                                    <div class="col-6">
+                                                        <div class="form-group mb-4">
+                                                            <input type="date" name="to_date[]" class="form-control form-custom" id="to">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12 text-right my-2">
-                                                    <label class="light-gray"><input class="mr-2" type="checkbox" value="">Currently working</label>
+                                                <div class="row">
+                                                    <div class="col-12 text-right my-2">
+                                                        <label class="light-gray"><input class="mr-2" name="is_working[]" type="checkbox" value="1">Currently working</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <textarea class="form-control 
+                                                            form-textarea" rows="5" id="responsibilities" required name="responsibilities[]"></textarea>
+                                                            <label class="form-control-placeholder" for="responsibilities">Responsibilities</label>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <div class="form-group">
-                                                        <textarea class="form-control 
-                                                        form-textarea" rows="5" id="responsibilities" required></textarea>
-                                                        <label class="form-control-placeholder" for="responsibilities">Responsibilities</label>
+                                                    <div class="text-left" onclick="addExp();"><i class="fa fa-plus text-primary" ></i>Add more experience</div>
+                                                    <div class="float-right text-right pr-3 py-2">
+                                                        <button type="submit" class="btn blue-btn text-white">Save</button>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="text-left" onclick="addExp();"><i class="fa fa-plus text-primary" ></i>Add more experience</div>
-                                                <div class="float-right text-right pr-3 py-2">
-                                                    <button type="submit" class="btn blue-btn text-white">Save</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -419,7 +422,88 @@
                     <!--  -->
                     <div class="shadow p-20 bg-white clearfix">
                         <p class="float-left mb-0 font-weight-bold text-dark font-18 text-left">Internship</p>
-                        <i class="float-right text-primary mt-1 fa fa-pen"></i>
+                        <a href="#internship" data-toggle="modal"><i class="float-right text-primary mt-1 fa fa-pen"></i></a>
+                        <!-- popup model -->
+                        <div class="modal fade text-left" id="internship">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header border-bottom-0">
+                                        <p class="font-weight-bold font-18 text-dark">Internship</p>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body model-custom-css py-0">
+                                        <form method="POST" action="{{url('update-internship')}}" enctype="multipart/form-data">
+                                            @csrf
+                                            <div id="intern-1">
+                                                <div class="row">
+                                                    <div class="col-3 text-center">
+                                                        <div class="cover-photo">
+                                                            <div class="file-upload">
+                                                                <label class="" for="customFile">
+                                                                    <i class="fa fa-upload"></i>
+                                                                    <p class="font-14 mb-0">Company Profile</p>
+                                                                </label>
+                                                                <input type="file" class="custom-file-input" id="customFile" name="company_profile[]">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--  -->
+                                                    <div class="col-9">
+                                                        <div class="form-group mb-4 mt-3">
+                                                            <input type="text" name="company_names[]" class="form-control form-custom" id="company_names" required>
+                                                            <label class="form-control-placeholder" for="company_names">Company name</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--  -->
+                                                <div class="form-group mb-4">
+                                                    <input type="text" name="designations[]" class="form-control form-custom" id="designations" required>
+                                                    <label class="form-control-placeholder" for="designations">Designation</label>
+                                                </div>
+                                                <!--  -->
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="form-group mb-4">
+                                                            <input type="date" name="from_date[]" class="form-control form-custom" id="date">
+                                                        </div>
+                                                    </div>
+                                                    <!--  -->
+                                                    <div class="col-6">
+                                                        <div class="form-group mb-4">
+                                                            <input type="date" name="to_date[]" class="form-control form-custom" id="to">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 text-right my-2">
+                                                        <label class="light-gray"><input class="mr-2" name="is_working[]" type="checkbox" value="1">Currently working</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <textarea class="form-control 
+                                                            form-textarea" rows="5" id="responsibilities" required name="responsibilities[]"></textarea>
+                                                            <label class="form-control-placeholder" for="responsibilities">Responsibilities</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="text-left" onclick="addIntern();"><i class="fa fa-plus text-primary" ></i>Add more</div>
+                                                    <div class="float-right text-right pr-3 py-2">
+                                                        <button type="submit" class="btn blue-btn text-white">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!--  -->
                     <div class="shadow p-20 bg-white clearfix">
@@ -617,10 +701,10 @@
                         <i class="float-right text-primary mt-1 fa fa-pen"></i>
                     </div>
                     <!--  -->
-                    <div class="shadow p-20 bg-white clearfix">
+                    <!-- <div class="shadow p-20 bg-white clearfix">
                         <p class="float-left mb-0 font-weight-bold text-dark font-18 text-left">Projects</p>
                         <i class="float-right text-primary mt-1 fa fa-pen"></i>
-                    </div>
+                    </div> -->
                     <!--  -->
                     <div class="shadow p-20 bg-white clearfix">
                         <p class="float-left mb-0 font-weight-bold text-dark font-18">Letter of Recommendation</p>
@@ -798,10 +882,19 @@
         }
 
         function addExp(){
-            $('#exp-1').append('<div id="exp-2"><i class="fa fa-times" aria-hidden="true" style="float:right;" onclick="removeExp(this)"></i><div class="row"><div class="col-3 text-center"><div class="cover-photo"><div class="file-upload"><label class="" for="customFile"><i class="fa fa-upload"></i><p class="font-14 mb-0">Company Profile</p></label><input type="file" class="custom-file-input" id="customFile" name="filename"></div></div></div><div class="col-9"><div class="form-group mb-4 mt-3"><input type="text" name="company_names" class="form-control form-custom" id="company_names" required><label class="form-control-placeholder" for="company_names">Company name</label></div></div></div><div class="form-group mb-4"><input type="text" name="designations" class="form-control form-custom" id="designations" required><label class="form-control-placeholder" for="designations">Designation</label></div><div class="row"><div class="col-6"><div class="form-group mb-4"><input type="date" name="date" class="form-control form-custom" id="date"></div></div><div class="col-6"><div class="form-group mb-4"><input type="date" name="date" class="form-control form-custom" id="to"></div></div></div><div class="row"><div class="col-12 text-right my-2"><label class="light-gray"><input class="mr-2" type="checkbox" value="">Currently working</label></div></div><div class="row"><div class="col-12"><div class="form-group"><textarea class="form-control  form-textarea" rows="5" id="responsibilities" required></textarea>                    <label class="form-control-placeholder" for="responsibilities">Responsibilities</label></div></div></div></div>');
+            $('#exp-1').append('<div id="exp-2"><i class="fa fa-times" aria-hidden="true" style="float:right;" onclick="removeExp(this)"></i><div class="row"><div class="col-3 text-center"><div class="cover-photo"><div class="file-upload"><label class="" for="customFile"><i class="fa fa-upload"></i><p class="font-14 mb-0">Company Profile</p></label><input type="file" class="custom-file-input" id="customFile" name="company_profile[]"></div></div></div><div class="col-9"><div class="form-group mb-4 mt-3"><input type="text" name="company_names[]" class="form-control form-custom" id="company_names" required><label class="form-control-placeholder" for="company_names">Company name</label></div></div></div><div class="form-group mb-4"><input type="text" name="designations[]" class="form-control form-custom" id="designations" required><label class="form-control-placeholder" for="designations">Designation</label></div><div class="row"><div class="col-6"><div class="form-group mb-4"><input type="date" name="from_date[]" class="form-control form-custom" id="date"></div></div><div class="col-6"><div class="form-group mb-4"><input type="date" name="to_date[]" class="form-control form-custom" id="to"></div></div></div><div class="row"><div class="col-12 text-right my-2"><label class="light-gray"><input class="mr-2" type="checkbox" value="1" name="is_working[]" >Currently working</label></div></div><div class="row"><div class="col-12"><div class="form-group"><textarea class="form-control  form-textarea" rows="5" id="responsibilities" name="responsibilities[]" required></textarea><label class="form-control-placeholder" for="responsibilities">Responsibilities</label></div></div></div></div>');
         }
 
         function removeExp(el){
+            console.log(el.parentNode);
+            el.parentNode.remove();
+        }
+        
+        function addIntern(){
+            $('#intern-1').append('<div id="intern-2"><i class="fa fa-times" aria-hidden="true" style="float:right;" onclick="removeIntern(this)"></i><div class="row"><div class="col-3 text-center"><div class="cover-photo"><div class="file-upload"><label class="" for="customFile"><i class="fa fa-upload"></i><p class="font-14 mb-0">Company Profile</p></label><input type="file" class="custom-file-input" id="customFile" name="company_profile[]"></div></div></div><div class="col-9"><div class="form-group mb-4 mt-3"><input type="text" name="company_names[]" class="form-control form-custom" id="company_names" required><label class="form-control-placeholder" for="company_names">Company name</label></div></div></div><div class="form-group mb-4"><input type="text" name="designations[]" class="form-control form-custom" id="designations" required><label class="form-control-placeholder" for="designations">Designation</label></div><div class="row"><div class="col-6"><div class="form-group mb-4"><input type="date" name="from_date[]" class="form-control form-custom" id="date"></div></div><div class="col-6"><div class="form-group mb-4"><input type="date" name="to_date[]" class="form-control form-custom" id="to"></div></div></div><div class="row"><div class="col-12 text-right my-2"><label class="light-gray"><input class="mr-2" type="checkbox" value="1" name="is_working[]" >Currently working</label></div></div><div class="row"><div class="col-12"><div class="form-group"><textarea class="form-control  form-textarea" rows="5" id="responsibilities" name="responsibilities[]" required></textarea><label class="form-control-placeholder" for="responsibilities">Responsibilities</label></div></div></div></div>');
+        }
+
+        function removeIntern(el){
             console.log(el.parentNode);
             el.parentNode.remove();
         }
