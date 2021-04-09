@@ -596,104 +596,63 @@
                             </div>
                             <!--  -->
                             <div class="row max-height">
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                                    <img class="img-fluid stock-img" src="{{url('assets/img/project-img.png')}}">
-                                </div>
-                                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                    <!--  -->
-                                    <div class="mt-5 mt-xl-0 mt-lg-0 mt-md-0">
-                                        <p class="text-medium text-dark font-18">Stock Price Analysis</p>
-                                        <ul>
-                                            <li class="list-unstyled mb-4 light-gray font-14 text-light-300 line-height-24">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique posuere velit, placerat gravida mauris pharetra sit amet. Duis interdum est quam.</li>
-                                            <div class="btn-group custom-group">
-                                                <a type="button" class="btn btn-light font-12">Python</a>
-                                                <a type="button" class="btn btn-light font-12 mx-2">Django</a>
-                                                <a type="button" class="btn btn-light font-12">Rest API</a>
-                                                <a class="text-primary font-14 text-medium ml-5 mobile-css" href="#myModal" data-toggle="modal">See more details</a>
-                                            </div>
-                                            <!-- popup model -->
-                                            <div class="modal fade" id="myModal">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header border-bottom-0">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body model-custom-css py-0">
-                                                            <img class="img-fluid" src="{{url('assets/img/project-img.png')}}">
-                                                            <p class="mt-4 text-medium text-dark font-18">Stock Price Analysis</p>
-                                                            <div class="btn-group custom-group">
-                                                                <a type="button" class="btn btn-light font-12">Python</a>
-                                                                <a type="button" class="btn btn-light font-12 mx-xl-3 mx-lg-2 mx-md-4 mx-2">Django</a>
-                                                                <a type="button" class="btn btn-light font-12">Rest API</a>
-                                                            </div>
-                                                            <p class="mt-4">Desription</p>
-                                                            <li class="list-unstyled mb-4 light-gray font-14 line-height-24 text-light-300">
-                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique posuere velit, placerat gravida mauris pharetra sit amet. Duis interdum est quam.
-                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique posuere velit, placerat gravida mauris pharetra sit amet. Duis interdum est quam.
-                                                            </li>
-                                                            <li class="list-unstyled mb-4 light-gray font-14 line-height-24 text-light-300">
-                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique posuere velit, placerat gravida mauris pharetra sit amet. Duis interdum est quam.
-                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique posuere velit, placerat gravida mauris pharetra sit amet. Duis interdum est quam.
-                                                            </li>
-                                                        </div>
+                                @if(count($project) > 0)
+                                    @foreach($project as $p)
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                            <img class="img-fluid stock-img" src="{{url('assets/img/project-img.png')}}">
+                                        </div>
+                                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                            <div class="mt-5 mt-xl-0 mt-lg-0 mt-md-0">
+                                                <p class="text-medium text-dark font-18">{{$p->project_title}}</p>
+                                                <ul>
+                                                    <li class="list-unstyled mb-4 light-gray font-14 text-light-300 line-height-24">{{$p->project_description}}</li>
+                                                    @php 
+                                                        $tools = explode(',',$p->tools_used);
+                                                    @endphp
+                                                    <div class="btn-group custom-group">
+                                                        @foreach($tools as $t)
+                                                            <a type="button" class="btn btn-light font-12">{{$t}}</a>
+                                                        @endforeach
+                                                       <!--  <a type="button" class="btn btn-light font-12 mx-2">Django</a>
+                                                        <a type="button" class="btn btn-light font-12">Rest API</a> -->
+                                                        <a class="text-primary font-14 text-medium ml-5 mobile-css" href="#myModal" data-toggle="modal">See more details</a>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <!-- popup model end -->
-                                        </ul>
-                                    </div>
-                                    <!--  -->
-                                </div>
-                                <!--  -->
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 mt-5">
-                                    <img class="img-fluid" src="{{url('assets/img/project-img.png')}}">
-                                </div>
-                                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 mt-5">
-                                    <!--  -->
-                                    <div class="">
-                                        <p class="text-medium text-dark font-18">Recon Dashboard</p>
-                                        <ul>
-                                            <li class="list-unstyled mb-4 light-gray font-14 text-light-300 line-height-24">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique posuere velit, placerat gravida mauris pharetra sit amet. Duis interdum est quam.</li>
-                                            <div class="btn-group custom-group">
-                                                <a type="button" class="btn btn-light font-12">Python</a>
-                                                <a type="button" class="btn btn-light font-12 mx-2">Django</a>
-                                                <a type="button" class="btn btn-light font-12">Rest API</a>
-                                                <a class="text-primary font-14 text-medium ml-5 mobile-css" href="#myModal-2" data-toggle="modal">See more details</a>
-                                            </div>
-                                            <!-- popup model -->
-                                            <div class="modal fade" id="myModal-2">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header border-bottom-0">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body model-custom-css py-0">
-                                                            <img class="img-fluid" src="{{url('assets/img/project-img.png')}}">
-                                                            <p class="mt-4 text-medium text-dark font-18">Stock Price Analysis</p>
-                                                            <div class="btn-group custom-group">
-                                                                <a type="button" class="btn btn-light font-12">Python</a>
-                                                                <a type="button" class="btn btn-light font-12 mx-xl-3 mx-lg-2 mx-md-4 mx-2">Django</a>
-                                                                <a type="button" class="btn btn-light font-12">Rest API</a>
+                                                    <!-- popup model -->
+                                                  <!--   <div class="modal fade" id="myModal">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header border-bottom-0">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body model-custom-css py-0">
+                                                                    <img class="img-fluid" src="{{url('assets/img/project-img.png')}}">
+                                                                    <p class="mt-4 text-medium text-dark font-18">Stock Price Analysis</p>
+                                                                    <div class="btn-group custom-group">
+                                                                        <a type="button" class="btn btn-light font-12">Python</a>
+                                                                        <a type="button" class="btn btn-light font-12 mx-xl-3 mx-lg-2 mx-md-4 mx-2">Django</a>
+                                                                        <a type="button" class="btn btn-light font-12">Rest API</a>
+                                                                    </div>
+                                                                    <p class="mt-4">Desription</p>
+                                                                    <li class="list-unstyled mb-4 light-gray font-14 line-height-24 text-light-300">
+                                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique posuere velit, placerat gravida mauris pharetra sit amet. Duis interdum est quam.
+                                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique posuere velit, placerat gravida mauris pharetra sit amet. Duis interdum est quam.
+                                                                    </li>
+                                                                    <li class="list-unstyled mb-4 light-gray font-14 line-height-24 text-light-300">
+                                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique posuere velit, placerat gravida mauris pharetra sit amet. Duis interdum est quam.
+                                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique posuere velit, placerat gravida mauris pharetra sit amet. Duis interdum est quam.
+                                                                    </li>
+                                                                </div>
                                                             </div>
-                                                            <p class="mt-4">Desription</p>
-                                                            <li class="list-unstyled mb-4 light-gray font-14 line-height-24 text-light-300">
-                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique posuere velit, placerat gravida mauris pharetra sit amet. Duis interdum est quam.
-                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique posuere velit, placerat gravida mauris pharetra sit amet. Duis interdum est quam.
-                                                            </li>
                                                         </div>
-                                                    </div>
-                                                </div>
+                                                    </div> -->
+                                                    <!-- popup model end -->
+                                                </ul>
                                             </div>
-                                            <!-- popup model end -->
-                                        </ul>
-                                    </div>
-                                    <!--  -->
-                                </div>
-                                <!--  -->
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <!--  -->

@@ -18,7 +18,7 @@ class CreateProfessionalExperiencesTable extends Migration
             $table->string('company_profile')->nullable();
             $table->string('company_name');
             $table->string('designation');
-            $table->date('start_date');
+            $table->date('start_date'); 
             $table->date('end_date')->nullable();
             $table->integer('is_working')->default(0);
             $table->integer('user_id');

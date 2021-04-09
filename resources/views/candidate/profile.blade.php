@@ -657,38 +657,43 @@
                                         </button>
                                     </div>
                                     <div class="modal-body model-custom-css py-0">
-                                        <div class="row">
-                                            <div class="col-12 text-center">
-                                                <div class="cover-photo p-5 mb-4 text-center">
-                                                    <div class="file-upload">
-                                                        <label class="" for="customFile">
-                                                            <i class="fa fa-upload"></i>
-                                                            <p class="font-14">Upload Cover Photo</p>
-                                                        </label>
-                                                        <input type="file" class="custom-file-input" id="customFile" name="filename">
+                                        <form method="POST" action="{{url('update-projects')}}" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-12 text-center">
+                                                    <div class="cover-photo p-5 mb-4 text-center">
+                                                        <div class="file-upload">
+                                                            <label class="" for="customFile">
+                                                                <i class="fa fa-upload"></i>
+                                                                <p class="font-14">Upload Cover Photo</p>
+                                                            </label>
+                                                            <input type="file" class="custom-file-input" id="customFile" name="filename">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!--  -->
-                                        <div class="form-group mb-4">
-                                            <input type="text" name="tool_used" class="form-control form-custom" id="tool_used" required>
-                                            <label class="form-control-placeholder" for="tool_used">Tools used</label>
-                                        </div>
-                                        <!--  -->
-                                        <div class="form-group">
-                                            <textarea class="form-control form-textarea" rows="5" id="commentt" required></textarea>
-                                            <label class="form-control-placeholder" for="commentt">Description</label>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <input type="text" name="project_url" class="form-control form-custom" id="project_url" required>
-                                            <label class="form-control-placeholder" for="project_url">project url</label>
-                                        </div>
-                                        <div class="float-right text-right pr-3 py-2">
-                                            <button type="submit" class="btn blue-btn text-white">Save</button>
-                                        </div>
-                                            
-                                        
+                                            <div class="form-group mb-4">
+                                                <input type="text" name="title" class="form-control form-custom" id="title" required>
+                                                <label class="form-control-placeholder" for="title">Project Title</label>
+                                            </div>
+                                            <!--  -->
+                                            <div class="form-group mb-4">
+                                                <input type="text" name="tool_used" class="form-control form-custom" id="tool_used" required>
+                                                <label class="form-control-placeholder" for="tool_used">Tools used</label>
+                                            </div>
+                                            <!--  -->
+                                            <div class="form-group">
+                                                <textarea class="form-control form-textarea" rows="5" id="commentt" required name="description"></textarea>
+                                                <label class="form-control-placeholder" for="commentt">Description</label>
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <input type="text" name="project_url" class="form-control form-custom" id="project_url" required>
+                                                <label class="form-control-placeholder" for="project_url">project url</label>
+                                            </div>
+                                            <div class="float-right text-right pr-3 py-2">
+                                                <button type="submit" class="btn blue-btn text-white">Save</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

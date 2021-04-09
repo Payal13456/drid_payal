@@ -72,4 +72,5 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('update-basic-details', 'Candidate\EditCandidateController@updateBasicDetails');
 	Route::post('update-pro-exp', 'Candidate\EditCandidateController@updateProExp');
 	Route::post('update-internship', 'Candidate\EditCandidateController@updateInternship');
+	Route::post('update-projects', 'Candidate\EditCandidateController@updateProjects');
 });

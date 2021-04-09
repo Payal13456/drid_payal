@@ -8,6 +8,7 @@ use App\Models\StudentInfo;
 use Auth;
 use Session;
 use App\Models\ProfessionalExperience;
+use App\Models\UserProjects;
 
 class EditCandidateController extends Controller
 {
@@ -177,6 +178,42 @@ class EditCandidateController extends Controller
             return redirect()->back();
         }else{
             Session::flash('danger', 'Record not found to update!');
+            return redirect()->back();
+        }
+    }
+
+    public function updateProjects(Request $request){
+        // echo "<pre>";print_r($request->all());die;
+        $img_path = ''; $cover_path = '';
+        if($request->file('filename') != ''){
+            $request->validate([
+                'profile_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+            $result = array($request->file('filename')->getClientOriginalExtension());
+            $file = $request->file('filename');
+            $files = $file->getClientOriginalName();
+            $file->move('assets/img', $files);
+            $name = $files;
+            $img_path = 'assets/img/'.$files;
+        }
+        // echo $cover_path;die;
+        $user = StudentInfo::find(Auth::user()->id);
+        if(!empty($user)){
+            $data = [
+                'project_file' => $img_path,
+                'project_title' => $request->title,
+                'project_description' => $request->description,
+                'tools_used' => $request->tool_used,
+                'project_url' => $request->project_url,
+                'user_id' => Auth::user()->id
+            ];
+            
+            UserProjects::insert($data);            
+            Session::flash('success', 'Project Details Updated!');
+            return redirect()->back();
+        }else{
+            Session::flash('danger', 'Session Expired , Please login again!');
             return redirect()->back();
         }
     }

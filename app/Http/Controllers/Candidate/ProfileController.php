@@ -9,6 +9,7 @@ use App\Models\familyInfo;
 use App\Models\ProfessionalExperience;
 use Auth;
 use Session;
+use App\Models\UserProjects;
 
 class ProfileController extends Controller
 {
@@ -41,7 +42,9 @@ class ProfileController extends Controller
        $familyInfo = familyInfo::where('student_id',Auth::user()->id)->first();
        $proExp = ProfessionalExperience::where('user_id',Auth::user()->id)->where('type','job')->get();
        $internship = ProfessionalExperience::where('user_id',Auth::user()->id)->where('type','intern')->get();
-       return view('candidate.introduction')->with(['user'=>$user,'familyInfo'=>$familyInfo,'proExp'=>$proExp,'internship'=>$internship]);
+       $projects = UserProjects::where('user_id',Auth::user()->id)->get();
+
+       return view('candidate.introduction')->with(['user'=>$user,'familyInfo'=>$familyInfo,'proExp'=>$proExp,'internship'=>$internship,'project'=>$projects]);
     }
 
     public function nextStep(){
